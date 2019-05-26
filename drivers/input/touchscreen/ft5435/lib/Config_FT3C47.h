@@ -1,6 +1,6 @@
 /************************************************************************
 * Copyright (C) 2012-2015, Focaltech Systems (R)，All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: Config_FT3C47.h
 *
@@ -71,9 +71,6 @@ struct stCfg_FT3C47_BasicThreshold
 	BYTE RawDataTest_SetHighFreq;
 	int AdcDetect_Max;
 
-
-
-
 	int SCapCbTest_OFF_Min;
 	int SCapCbTest_OFF_Max;
 	int SCapCbTest_ON_Min;
@@ -81,8 +78,6 @@ struct stCfg_FT3C47_BasicThreshold
 	bool SCapCbTest_LetTx_Disable;
 	BYTE SCapCbTest_SetWaterproof_OFF;
 	BYTE SCapCbTest_SetWaterproof_ON;
-
-
 
 	int SCapRawDataTest_OFF_Min;
 	int SCapRawDataTest_OFF_Max;
@@ -113,14 +108,6 @@ struct stCfg_FT3C47_BasicThreshold
 	bool bNoiseThreshold_Choose;
 	int NoiseTest_Threshold;
 	int NoiseTest_MinNgFrame;
-
-
-
-
-
-
-
-
 
 	int WeakShortTest_CG;
 	int WeakShortTest_CC;
@@ -188,9 +175,9 @@ struct stCfg_FT3C47_BasicThreshold
 };
 enum enumTestItem_FT3C47
 {
-	Code_FT3C47_ENTER_FACTORY_MODE,所有IC都必备的测试项
-	Code_FT3C47_DOWNLOAD,所有IC都必备的测试项
-	Code_FT3C47_UPGRADE,所有IC都必备的测试项
+	Code_FT3C47_ENTER_FACTORY_MODE,
+	Code_FT3C47_DOWNLOAD,
+	Code_FT3C47_UPGRADE,
 	Code_FT3C47_FACTORY_ID_TEST,
 	Code_FT3C47_PROJECT_CODE_TEST,
 	Code_FT3C47_FW_VERSION_TEST,
@@ -207,14 +194,14 @@ enum enumTestItem_FT3C47
 	Code_FT3C47_UNIFORMITY_TEST,
 	Code_FT3C47_CM_TEST,
 	Code_FT3C47_RAWDATA_MARGIN_TEST,
-	Code_FT3C47_WRITE_CONFIG,所有IC都必备的测试项
+	Code_FT3C47_WRITE_CONFIG,
 	Code_FT3C47_PANELDIFFER_TEST,
 	Code_FT3C47_PANELDIFFER_UNIFORMITY_TEST,
 	Code_FT3C47_LCM_ID_TEST,
 	Code_FT3C47_JUDEG_NORMALIZE_TYPE,
 	Code_FT3C47_TE_TEST,
 	Code_FT3C47_SITO_RAWDATA_UNIFORMITY_TEST,
-    	Code_FT3C47_PATTERN_TEST,
+	Code_FT3C47_PATTERN_TEST,
 
 	Code_FT3C47_GPIO_TEST,
 	Code_FT3C47_LCD_NOISE_TEST,

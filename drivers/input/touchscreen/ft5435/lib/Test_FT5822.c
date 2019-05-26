@@ -1,6 +1,6 @@
 /************************************************************************
 * Copyright (C) 2012-2015, Focaltech Systems (R)，All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: Test_FT5822.c
 *
@@ -68,12 +68,12 @@ enum WaterproofType
 * Static variables
 *******************************************************************************/
 
-static int m_RawData[TX_NUM_MAX][RX_NUM_MAX] = {{0,0}};
+static int m_RawData[TX_NUM_MAX][RX_NUM_MAX] = {{0, 0}};
 static int m_iTempRawData[TX_NUM_MAX * RX_NUM_MAX] = {0};
 static unsigned char m_ucTempData[TX_NUM_MAX * RX_NUM_MAX*2] = {0};
 static bool m_bV3TP;
-static int RxLinearity[TX_NUM_MAX][RX_NUM_MAX] = {{0,0}};
-static int TxLinearity[TX_NUM_MAX][RX_NUM_MAX] = {{0,0}};
+static int RxLinearity[TX_NUM_MAX][RX_NUM_MAX] = {{0, 0}};
+static int TxLinearity[TX_NUM_MAX][RX_NUM_MAX] = {{0, 0}};
 
 
 
@@ -294,7 +294,7 @@ int FT5822_get_test_data(char *pTestData)
 unsigned char FT5822_TestItem_EnterFactoryMode(void)
 {
 	unsigned char ReCode = ERROR_CODE_INVALID_PARAM;
-	int iRedo = 5;	如果不成功，重复进入5次
+	int iRedo = 5;
 	int i ;
 	unsigned char chPattern = 0;
 
@@ -325,13 +325,8 @@ unsigned char FT5822_TestItem_EnterFactoryMode(void)
 		return ReCode;
 	}
 
-	进工厂模式成功后，就读出通道数
 	ReCode = GetChannelNum();
 
-	设置FIR，0：关闭，1：打开
-
-
-	判断是否为V3屏体
 	ReCode = ReadReg(REG_PATTERN_5422, &chPattern);
 	if (chPattern == 1)
 	{
@@ -374,8 +369,6 @@ unsigned char FT5822_TestItem_RawDataTest(bool *bTestResult)
 	}
 
 
-	先判断是否为v3屏体，然后读取0x54的值，并判断与设定的mapping类型是否一致，不一致写入数据
-	后，mapping前：0x54=1;mapping后：0x54=0;
 	if (m_bV3TP)
 	{
 		ReCode = ReadReg(REG_MAPPING_SWITCH, &strSwitch);
@@ -386,28 +379,25 @@ unsigned char FT5822_TestItem_RawDataTest(bool *bTestResult)
 		}
 	}
 
-	逐行逐列归一之后的rawdata值，0X16=0默认
-	ReCode = ReadReg(REG_NORMALIZE_TYPE, &OriginValue);读取原始值
+	ReCode = ReadReg(REG_NORMALIZE_TYPE, &OriginValue);
 	if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 
 
 	if (g_ScreenSetParam.isNormalize == Auto_Normalize)
 	{
-		if (OriginValue != 1)与需要改变的值不同，则写寄存器为需要的值
+		if (OriginValue != 1)
 		{
 			ReCode = WriteReg(REG_NORMALIZE_TYPE, 0x01);
 			if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 		}
-		设置高频点
 
 		printk("\n=========Set Frequecy High\n");
 		ReCode = WriteReg(0x0A, 0x81);
 		if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 
 		printk("\n=========FIR State: ON\n");
-		ReCode = WriteReg(0xFB, 1);：关闭，1：打开
+		ReCode = WriteReg(0xFB, 1);
 		if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
-		先前改变了寄存器 需丢三帧数据
 		for (index = 0; index < 3; ++index)
 		{
 			ReCode = GetRawData();
@@ -444,7 +434,7 @@ unsigned char FT5822_TestItem_RawDataTest(bool *bTestResult)
 	}
 	else
 	{
-		if (OriginValue != 0)与需要改变的值不同，则写寄存器为需要的值
+		if (OriginValue != 0)
 		{
 			ReCode = WriteReg(REG_NORMALIZE_TYPE, 0x00);
 			if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
@@ -454,20 +444,16 @@ unsigned char FT5822_TestItem_RawDataTest(bool *bTestResult)
 		if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 
 
-		设置低频点
 		if (g_stCfg_FT5822_BasicThreshold.RawDataTest_SetLowFreq)
 		{
 			printk("\n=========Set Frequecy Low\n");
 			ReCode = WriteReg(0x0A, 0x80);
 			if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 
-			：关闭，1：打开
-
 			printk("\n=========FIR State: OFF\n");
 			ReCode = WriteReg(0xFB, 0);
 			if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 			SysDelay(100);
-			先前改变了寄存器 需丢三帧数据
 			for (index = 0; index < 3; ++index)
 			{
 				ReCode = GetRawData();
@@ -504,7 +490,6 @@ unsigned char FT5822_TestItem_RawDataTest(bool *bTestResult)
 		}
 
 
-		设置高频点
 		if (g_stCfg_FT5822_BasicThreshold.RawDataTest_SetHighFreq)
 		{
 
@@ -512,13 +497,11 @@ unsigned char FT5822_TestItem_RawDataTest(bool *bTestResult)
 			ReCode = WriteReg(0x0A, 0x81);
 			if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 
-			：关闭，1：打开
-
 			printk("\n=========FIR State: OFF\n");
 			ReCode = WriteReg(0xFB, 0);
 			if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 			SysDelay(100);
-			先前改变了寄存器 需丢三帧数据
+
 			for (index = 0; index < 3; ++index)
 			{
 				ReCode = GetRawData();
@@ -558,10 +541,9 @@ unsigned char FT5822_TestItem_RawDataTest(bool *bTestResult)
 
 
 
-	ReCode = WriteReg(REG_NORMALIZE_TYPE, OriginValue);恢复原来寄存器值
+	ReCode = WriteReg(REG_NORMALIZE_TYPE, OriginValue);
 	if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 
-	恢复v3屏体的mapping值
 	if (m_bV3TP)
 	{
 		ReCode = WriteReg(REG_MAPPING_SWITCH, strSwitch);
@@ -642,14 +624,12 @@ unsigned char FT5822_TestItem_SCapRawDataTest(bool *bTestResult)
 	{
 		memset(m_iTempRawData, 0, sizeof(m_iTempRawData));
 
-		防水rawdata
 		ByteNum = (g_ScreenSetParam.iTxNum + g_ScreenSetParam.iRxNum)*2;
 		ReCode = ReadRawData(0, 0xAC, ByteNum, m_iTempRawData);
 		if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
 		memcpy(m_RawData[0+g_ScreenSetParam.iTxNum], m_iTempRawData, sizeof(int)*g_ScreenSetParam.iRxNum);
 		memcpy(m_RawData[1+g_ScreenSetParam.iTxNum], m_iTempRawData + g_ScreenSetParam.iRxNum, sizeof(int)*g_ScreenSetParam.iTxNum);
 
-		非防水rawdata
 		ByteNum = (g_ScreenSetParam.iTxNum + g_ScreenSetParam.iRxNum)*2;
 		ReCode = ReadRawData(0, 0xAB, ByteNum, m_iTempRawData);
 		if (ReCode != ERROR_CODE_OK)goto TEST_ERR;
@@ -813,7 +793,6 @@ unsigned char FT5822_TestItem_SCapRawDataTest(bool *bTestResult)
 			}
 		}
 
-		有自容才会使用Mapping前的，所以该测试项结束以后，需要转到Mapping后
 		GetChannelNum();
 	}
 
@@ -845,7 +824,7 @@ TEST_ERR:
 ***********************************************************************/
 unsigned char FT5822_TestItem_SCapCbTest(bool *bTestResult)
 {
-	int i,/* j, iOutNum,*/index,Value,CBMin,CBMax;
+	int i, /* j, iOutNum, */index, Value, CBMin, CBMax;
 	boolean bFlag = true;
 	unsigned char ReCode;
 	boolean btmpresult = true;
@@ -891,8 +870,7 @@ unsigned char FT5822_TestItem_SCapCbTest(bool *bTestResult)
 		memset(m_RawData, 0, sizeof(m_RawData));
 		memset(m_ucTempData, 0, sizeof(m_ucTempData));
 
-		防水CB
-		ReCode = WriteReg(REG_ScWorkMode, 1);自容工作方式选择:  1：防水 0:非防水
+		ReCode = WriteReg(REG_ScWorkMode, 1);
 		ReCode = StartScan();
 		ReCode = WriteReg(REG_ScCbAddrR, 0);
 		ReCode = GetTxSC_CB(g_ScreenSetParam.iTxNum + g_ScreenSetParam.iRxNum + 128, m_ucTempData);
@@ -905,8 +883,7 @@ unsigned char FT5822_TestItem_SCapCbTest(bool *bTestResult)
 			m_RawData[1 + g_ScreenSetParam.iTxNum][index] = m_ucTempData[index + g_ScreenSetParam.iRxNum];
 		}
 
-		非防水rawdata
-		ReCode = WriteReg(REG_ScWorkMode, 0);自容工作方式选择:  1：防水 0:非防水
+		ReCode = WriteReg(REG_ScWorkMode, 0);
 		ReCode = StartScan();
 		ReCode = WriteReg(REG_ScCbAddrR, 0);
 		ReCode = GetTxSC_CB(g_ScreenSetParam.iRxNum + g_ScreenSetParam.iTxNum + 128, m_ucTempData);
@@ -1083,7 +1060,6 @@ unsigned char FT5822_TestItem_SCapCbTest(bool *bTestResult)
 			}
 		}
 
-		有自容才会使用Mapping前的，所以该测试项结束以后，需要转到Mapping后
 		GetChannelNum();
 	}
 
@@ -1142,17 +1118,17 @@ static int StartScan(void)
 {
 	unsigned char RegVal = 0;
 	unsigned char times = 0;
-	const unsigned char MaxTimes = 20;	最长等待160ms
+	const unsigned char MaxTimes = 20;
 	unsigned char ReCode = ERROR_CODE_COMM_ERROR;
 
 	ReCode = ReadReg(DEVIDE_MODE_ADDR, &RegVal);
 	if (ReCode == ERROR_CODE_OK)
 	{
-		RegVal |= 0x80;		最高位置1，启动扫描
+		RegVal |= 0x80;
 		ReCode = WriteReg(DEVIDE_MODE_ADDR, RegVal);
 		if (ReCode == ERROR_CODE_OK)
 		{
-			while(times++ < MaxTimes)		等待扫描完成
+			while(times++ < MaxTimes)
 			{
 				SysDelay(8);
 				ReCode = ReadReg(DEVIDE_MODE_ADDR, &RegVal);
@@ -1235,9 +1211,6 @@ unsigned char ReadRawData(unsigned char Freq, unsigned char LineNum, int ByteNum
 		for (i = 0; i < (ByteNum>>1); i++)
 		{
 			pRevBuffer[i] = (m_ucTempData[i<<1]<<8)+m_ucTempData[(i<<1)+1];
-			有符号位
-
-
 
 		}
 	}
@@ -1257,13 +1230,13 @@ unsigned char GetTxSC_CB(unsigned char index, unsigned char *pcbValue)
 	unsigned char ReCode = ERROR_CODE_OK;
 	unsigned char wBuffer[4];
 
-	if (index < 128)单个读取
+	if (index < 128)
 	{
 		*pcbValue = 0;
 		WriteReg(REG_ScCbAddrR, index);
 		ReCode = ReadReg(REG_ScCbBuf0, pcbValue);
 	}
-	else连续读取，长度为index-128
+	else
 	{
 		WriteReg(REG_ScCbAddrR, 0);
 		wBuffer[0] = REG_ScCbBuf0;
@@ -1342,7 +1315,7 @@ static void InitStoreParamOfTestData(void)
 
 	g_lenStoreMsgArea = 0;
 
-	g_lenStoreMsgArea += sprintf(g_pStoreMsgArea,"ECC, 85, 170, IC Name, %s, IC Code, %x\n", g_strIcName,  g_ScreenSetParam.iSelectedIC);
+	g_lenStoreMsgArea += sprintf(g_pStoreMsgArea, "ECC, 85, 170, IC Name, %s, IC Code, %x\n", g_strIcName,  g_ScreenSetParam.iSelectedIC);
 
 
 
@@ -1367,7 +1340,7 @@ static void MergeAllTestData(void)
 	int iLen = 0;
 
 
-	iLen = sprintf(g_pTmpBuff,"TestItem, %d, ", m_iTestDataCount);
+	iLen = sprintf(g_pTmpBuff, "TestItem, %d, ", m_iTestDataCount);
 	memcpy(g_pStoreMsgArea+g_lenStoreMsgArea, g_pTmpBuff, iLen);
 	g_lenStoreMsgArea+=iLen;
 
@@ -1376,7 +1349,7 @@ static void MergeAllTestData(void)
 	g_lenStoreMsgArea+=g_lenMsgAreaLine2;
 
 
-	iLen = sprintf(g_pTmpBuff,"\n\n\n\n\n\n\n\n\n");
+	iLen = sprintf(g_pTmpBuff, "\n\n\n\n\n\n\n\n\n");
 	memcpy(g_pStoreMsgArea+g_lenStoreMsgArea, g_pTmpBuff, iLen);
 	g_lenStoreMsgArea+=iLen;
 
@@ -1406,7 +1379,7 @@ static void Save_Test_Data(int iData[TX_NUM_MAX][RX_NUM_MAX], int iArrayIndex, u
 	int i = 0, j = 0;
 
 
-	iLen = sprintf(g_pTmpBuff,"NA, %d, %d, %d, %d, %d, ", \
+	iLen = sprintf(g_pTmpBuff, "NA, %d, %d, %d, %d, %d, ", \
 		m_ucTestItemCode, Row, Col, m_iStartLine, ItemCount);
 	memcpy(g_pMsgAreaLine2+g_lenMsgAreaLine2, g_pTmpBuff, iLen);
 	g_lenMsgAreaLine2 += iLen;
@@ -1420,9 +1393,9 @@ static void Save_Test_Data(int iData[TX_NUM_MAX][RX_NUM_MAX], int iArrayIndex, u
 		for (j = 0; j < Col; j++)
 		{
 			if (j == (Col -1))
-				iLen = sprintf(g_pTmpBuff,"%d, \n", iData[i][j]);
+				iLen = sprintf(g_pTmpBuff, "%d, \n", iData[i][j]);
 			else
-				iLen = sprintf(g_pTmpBuff,"%d, ", iData[i][j]);
+				iLen = sprintf(g_pTmpBuff, "%d, ", iData[i][j]);
 
 			memcpy(g_pStoreDataArea+g_lenStoreDataArea, g_pTmpBuff, iLen);
 			g_lenStoreDataArea += iLen;
@@ -1640,26 +1613,22 @@ static boolean GetTestCondition(int iTestType, unsigned char ucChannelValue)
 	boolean bIsNeeded = false;
 	switch(iTestType)
 	{
-	case WT_NeedProofOnTest:：检测防水模式;  1：不检测防水模式
+	case WT_NeedProofOnTest:
 		bIsNeeded = !(ucChannelValue & 0x20);
 		break;
-	case WT_NeedProofOffTest:普通模式检测； 1：普通模式不检测
+	case WT_NeedProofOffTest
 		bIsNeeded = !(ucChannelValue & 0x80);
 		break;
 	case WT_NeedTxOnVal:
-		检测防水Rx+Tx； 1：只检测一个通道
-		检测防水Tx;  1:  只检测防水Rx
 		bIsNeeded = !(ucChannelValue & 0x40) || !(ucChannelValue & 0x04);
 		break;
 	case WT_NeedRxOnVal:
-		检测防水Rx+Tx； 1：只检测一个通道
-		检测防水Tx;  1:  只检测防水Rx
 		bIsNeeded = !(ucChannelValue & 0x40) || (ucChannelValue & 0x04);
 		break;
-	case WT_NeedTxOffVal:普通模式Tx; 10: 普通模式Rx+Tx
+	case WT_NeedTxOffVal:
 		bIsNeeded = (0x00 == (ucChannelValue & 0x03)) || (0x02 == (ucChannelValue & 0x03));
 		break;
-	case WT_NeedRxOffVal:普通模式Rx;    10: 普通模式Rx+Tx
+	case WT_NeedRxOffVal:
 		bIsNeeded = (0x01 == (ucChannelValue & 0x03)) || (0x02 == (ucChannelValue & 0x03));
 		break;
 	default:break;
@@ -1668,7 +1637,6 @@ static boolean GetTestCondition(int iTestType, unsigned char ucChannelValue)
 }
 
 
-高频、FIR：0的数据
 unsigned char FT5822_TestItem_UniformityTest(bool *bTestResult)
 {
 	unsigned char ReCode = ERROR_CODE_OK;
@@ -1702,7 +1670,6 @@ unsigned char FT5822_TestItem_UniformityTest(bool *bTestResult)
 		goto TEST_END;
 	}
 
-	高频
 	ReCode = WriteReg(REG_FREQUENCY, 0x81);
 	SysDelay(100);
 	if (ReCode != ERROR_CODE_OK)
@@ -1724,7 +1691,6 @@ unsigned char FT5822_TestItem_UniformityTest(bool *bTestResult)
 		goto TEST_END;
 	}
 
-	先前改变了寄存器 需丢三帧数据
 	for (index = 0; index < 3; ++index)
 	{
 		ReCode = GetRawData();
@@ -1836,14 +1802,12 @@ unsigned char FT5822_TestItem_UniformityTest(bool *bTestResult)
 		}
 	}
 
-	恢复原有频率
 	ReCode =  WriteReg(REG_FREQUENCY, ucFre);
 	SysDelay(100);
 	if (ReCode != ERROR_CODE_OK)
 	{
 		goto TEST_END;
 	}
-	恢复原有频率,fir
 	ReCode =  WriteReg(REG_FIR, FirValue);
 	SysDelay(100);
 	if (ReCode != ERROR_CODE_OK)

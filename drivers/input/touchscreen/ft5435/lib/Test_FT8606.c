@@ -1,6 +1,6 @@
 /************************************************************************
 * Copyright (C) 2012-2015, Focaltech Systems (R)，All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: Test_FT8606.c
 *
@@ -86,14 +86,14 @@ enum NOISE_TYPE
 * Static variables
 *******************************************************************************/
 
-static int m_RawData[TX_NUM_MAX][RX_NUM_MAX] = {{0,0}};
-static int m_NoiseData[TX_NUM_MAX][RX_NUM_MAX] = {{0,0}};
-static int m_CBData[TX_NUM_MAX][RX_NUM_MAX] = {{0,0}};
-static int m_AvgData[TX_NUM_MAX][RX_NUM_MAX] = {{0,0}};
-static int m_iTempData[TX_NUM_MAX][RX_NUM_MAX] = {{0,0}};
+static int m_RawData[TX_NUM_MAX][RX_NUM_MAX] = {{0, 0}};
+static int m_NoiseData[TX_NUM_MAX][RX_NUM_MAX] = {{0, 0}};
+static int m_CBData[TX_NUM_MAX][RX_NUM_MAX] = {{0, 0}};
+static int m_AvgData[TX_NUM_MAX][RX_NUM_MAX] = {{0, 0}};
+static int m_iTempData[TX_NUM_MAX][RX_NUM_MAX] = {{0, 0}};
 static BYTE m_ucTempData[TX_NUM_MAX * RX_NUM_MAX*2] = {0};
 static int m_iTempRawData[TX_NUM_MAX * RX_NUM_MAX] = {0};
-static int m_TempNoiseData[MAX_NOISE_FRAMES][RX_NUM_MAX * TX_NUM_MAX] = {{0,0}};
+static int m_TempNoiseData[MAX_NOISE_FRAMES][RX_NUM_MAX * TX_NUM_MAX] = {{0, 0}};
 
 
 
@@ -161,7 +161,6 @@ boolean FT8606_StartTest()
 	if (0 == g_TestItemNum)
 		bTestResult = false;
 
-	测试过程，即是顺序执行g_stTestItem结构体的测试项
 	for (iItemCount = 0; iItemCount < g_TestItemNum; iItemCount++)
 	{
 		m_ucTestItemCode = g_stTestItem[ucDevice][iItemCount].ItemCode;
@@ -368,7 +367,7 @@ static void InitStoreParamOfTestData(void)
 {
 	g_lenStoreMsgArea = 0;
 
-	g_lenStoreMsgArea += sprintf(g_pStoreMsgArea,"ECC, 85, 170, IC Name, %s, IC Code, %x\n", g_strIcName,  g_ScreenSetParam.iSelectedIC);
+	g_lenStoreMsgArea += sprintf(g_pStoreMsgArea, "ECC, 85, 170, IC Name, %s, IC Code, %x\n", g_strIcName,  g_ScreenSetParam.iSelectedIC);
 
 
 
@@ -393,7 +392,7 @@ static void MergeAllTestData(void)
 	int iLen = 0;
 
 
-	iLen = sprintf(g_pTmpBuff,"TestItem, %d, ", m_iTestDataCount);
+	iLen = sprintf(g_pTmpBuff, "TestItem, %d, ", m_iTestDataCount);
 	memcpy(g_pStoreMsgArea+g_lenStoreMsgArea, g_pTmpBuff, iLen);
 	g_lenStoreMsgArea+=iLen;
 
@@ -402,7 +401,7 @@ static void MergeAllTestData(void)
 	g_lenStoreMsgArea+=g_lenMsgAreaLine2;
 
 
-	iLen = sprintf(g_pTmpBuff,"\n\n\n\n\n\n\n\n\n");
+	iLen = sprintf(g_pTmpBuff, "\n\n\n\n\n\n\n\n\n");
 	memcpy(g_pStoreMsgArea+g_lenStoreMsgArea, g_pTmpBuff, iLen);
 	g_lenStoreMsgArea+=iLen;
 
@@ -432,7 +431,7 @@ static void Save_Test_Data(int iData[TX_NUM_MAX][RX_NUM_MAX], int iArrayIndex, u
 	int i = 0, j = 0;
 
 
-	iLen = sprintf(g_pTmpBuff,"NA, %d, %d, %d, %d, %d, ", \
+	iLen = sprintf(g_pTmpBuff, "NA, %d, %d, %d, %d, %d, ", \
 		m_ucTestItemCode, Row, Col, m_iStartLine, ItemCount);
 	memcpy(g_pMsgAreaLine2+g_lenMsgAreaLine2, g_pTmpBuff, iLen);
 	g_lenMsgAreaLine2 += iLen;
@@ -446,9 +445,9 @@ static void Save_Test_Data(int iData[TX_NUM_MAX][RX_NUM_MAX], int iArrayIndex, u
 		for (j = 0; j < Col; j++)
 		{
 			if (j == (Col -1))
-				iLen = sprintf(g_pTmpBuff,"%d, \n", iData[i][j]);
+				iLen = sprintf(g_pTmpBuff, "%d, \n", iData[i][j]);
 			else
-				iLen = sprintf(g_pTmpBuff,"%d, ", iData[i][j]);
+				iLen = sprintf(g_pTmpBuff, "%d, ", iData[i][j]);
 
 			memcpy(g_pStoreDataArea+g_lenStoreDataArea, g_pTmpBuff, iLen);
 			g_lenStoreDataArea += iLen;
@@ -469,7 +468,7 @@ static int StartScan(void)
 {
 	unsigned char RegVal = 0x00;
 	unsigned char times = 0;
-	const unsigned char MaxTimes = 20;	最长等待160ms
+	const unsigned char MaxTimes = 20;
 	unsigned char ReCode = ERROR_CODE_COMM_ERROR;
 
 
@@ -477,11 +476,11 @@ static int StartScan(void)
 	ReCode = ReadReg(DEVIDE_MODE_ADDR, &RegVal);
 	if (ReCode == ERROR_CODE_OK)
 	{
-		RegVal |= 0x80;		最高位置1，启动扫描
-		ReCode = WriteReg(DEVIDE_MODE_ADDR,RegVal);
+		RegVal |= 0x80;
+		ReCode = WriteReg(DEVIDE_MODE_ADDR, RegVal);
 		if (ReCode == ERROR_CODE_OK)
 		{
-			while(times++ < MaxTimes)		等待扫描完成
+			while(times++ < MaxTimes)
 			{
 				SysDelay(8);
 				ReCode = ReadReg(DEVIDE_MODE_ADDR, &RegVal);
@@ -563,8 +562,6 @@ static unsigned char ReadRawData(unsigned char Freq, unsigned char LineNum, int 
 		for (i = 0; i < (ByteNum>>1); i++)
 		{
 			pRevBuffer[i] = (pReadData[i<<1]<<8)+pReadData[(i<<1)+1];
-			有符号位
-
 
 
 		}
@@ -584,8 +581,8 @@ static unsigned char ReadRawData(unsigned char Freq, unsigned char LineNum, int 
 static unsigned char GetTxRxCB(unsigned short StartNodeNo, unsigned short ReadNum, unsigned char *pReadBuffer)
 {
 	unsigned char ReCode = ERROR_CODE_OK;
-	unsigned short usReturnNum = 0;次要返回的个数
-	unsigned short usTotalReturnNum = 0;总返回个数
+	unsigned short usReturnNum = 0;
+	unsigned short usTotalReturnNum = 0;
 	unsigned char wBuffer[4];
 	int i, iReadNum;
 
@@ -604,8 +601,8 @@ static unsigned char GetTxRxCB(unsigned short StartNodeNo, unsigned short ReadNu
 		else
 			usReturnNum = 342;
 
-		wBuffer[1] = (StartNodeNo+usTotalReturnNum) >>8;地址偏移量高8位
-		wBuffer[2] = (StartNodeNo+usTotalReturnNum)&0xff;地址偏移量低8位
+		wBuffer[1] = (StartNodeNo+usTotalReturnNum) >>8;
+		wBuffer[2] = (StartNodeNo+usTotalReturnNum)&0xff;
 
 		ReCode = WriteReg(REG_CbAddrH, wBuffer[1]);
 		ReCode = WriteReg(REG_CbAddrL, wBuffer[2]);
@@ -623,15 +620,11 @@ static unsigned char GetTxRxCB(unsigned short StartNodeNo, unsigned short ReadNu
 }
 
 
-获取PanelRows
-
 static unsigned char GetPanelRows(unsigned char *pPanelRows)
 {
 	return ReadReg(REG_TX_NUM, pPanelRows);
 }
 
-
-获取PanelCols
 
 static unsigned char GetPanelCols(unsigned char *pPanelCols)
 {
@@ -654,7 +647,7 @@ unsigned char FT8606_TestItem_EnterFactoryMode(void)
 {
 
 	unsigned char ReCode = ERROR_CODE_INVALID_PARAM;
-	int iRedo = 5;	如果不成功，重复进入5次
+	int iRedo = 5;
 	int i ;
 	SysDelay(150);
 	printk("Enter factory mode...\n");
@@ -678,7 +671,7 @@ unsigned char FT8606_TestItem_EnterFactoryMode(void)
 	}
 	SysDelay(300);
 
-	if (ReCode == ERROR_CODE_OK)	进工厂模式成功后，就读出通道数
+	if (ReCode == ERROR_CODE_OK)
 	{
 		ReCode = GetChannelNum();
 	}
@@ -795,7 +788,7 @@ static unsigned char GetChannelNum(void)
 
 
 
-	printk("CH_X = %d, CH_Y = %d, Key = %d\n", g_stSCapConfEx.ChannelXNum ,g_stSCapConfEx.ChannelYNum, g_stSCapConfEx.KeyNum);
+	printk("CH_X = %d, CH_Y = %d, Key = %d\n", g_stSCapConfEx.ChannelXNum , g_stSCapConfEx.ChannelYNum, g_stSCapConfEx.KeyNum);
 	return ReCode;
 }
 /************************************************************************
@@ -1062,10 +1055,10 @@ unsigned char FT8606_TestItem_NoiseTest(bool *bTestResult)
 	bool btmpresult = true;
 
 	int iNoiseFrames = 0;
-	int i,iRow,iCol;
+	int i, iRow, iCol;
 	int iValue = 0;
 	int iMinValue = 0, iMaxValue = 0;
-	int n,temp;
+	int n, temp;
 
 	int *pTempNext = NULL;
 	int *pTempPrev = NULL;

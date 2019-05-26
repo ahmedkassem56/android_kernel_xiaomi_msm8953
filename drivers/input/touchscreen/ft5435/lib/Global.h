@@ -1,6 +1,6 @@
 /************************************************************************
 * Copyright (C) 2012-2015, Focaltech Systems (R)，All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: Global.c
 *
@@ -51,7 +51,7 @@ Test Status
 /*-----------------------------------------------------------
 IC 对应码，每一颗IC代码是8 bit，高四位代表相同系列，低四位区别具体IC
 -----------------------------------------------------------*/
-enum IC_Type对应码，每一颗IC代码是8 bit，高四位代表相同系列，低四位区别具体IC
+enum IC_Type
 {
 	IC_FT5X36 = 0x10,
 	IC_FT5X36i = 0x11,
@@ -94,7 +94,7 @@ enum IC_Type对应码，每一颗IC代码是8 bit，高四位代表相同系列，低四位区别具体IC
 
 struct StruScreenSeting
 {
-	int iSelectedIC;当前选择的IC
+	int iSelectedIC;
 	int iTxNum;
 	int iRxNum;
 	int isNormalize;
@@ -108,12 +108,10 @@ struct StruScreenSeting
 
 struct stTestItem
 {
-	unsigned char ItemType;对测试项进行分类	CfgItem, DataTestItem, GraphTestItem,
-	unsigned char TestNum;测试时的序号
-	unsigned char TestResult;测试结果,NG\PASS\TESTING
-	unsigned char ItemCode;测试项目名代号
-	测试项名
-	释
+	unsigned char ItemType;
+	unsigned char TestNum;
+	unsigned char TestResult;
+	unsigned char ItemCode;
 };
 
 enum NORMALIZE_Type
@@ -132,7 +130,7 @@ enum PROOF_TYPE
 extern struct stCfg_MCap_DetailThreshold g_stCfg_MCap_DetailThreshold;
 extern struct stCfg_SCap_DetailThreshold g_stCfg_SCap_DetailThreshold;
 
-extern struct StruScreenSeting g_ScreenSetParam; 屏幕设置参数
+extern struct StruScreenSeting g_ScreenSetParam;
 extern struct stTestItem g_stTestItem[1][MAX_TEST_ITEM];
 
 extern int g_TestItemNum;/*test item num*/

@@ -1,6 +1,6 @@
 /************************************************************************
 * Copyright (C) 2012-2015, Focaltech Systems (R)，All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: Config_FT8606.h
 *
@@ -31,23 +31,6 @@ struct stCfg_FT8606_TestItem
 	bool CB_TEST;
 	bool SHORT_TEST;
 
-	/*
-	stCfg_FT8606_TestItem()
-	{
-		FW_VERSION_TEST = 0;
-		FACTORY_ID_TEST = 0;
-		PROJECT_CODE_TEST = 0;
-		IC_VERSION_TEST = 0;
-		RAWDATA_TEST = 0;
-		CHANNEL_NUM_TEST = 0;
-		INT_PIN_TEST = 0;
-		RESET_PIN_TEST = 0;
-		NOISE_TEST = 0;
-		CB_TEST = 0;
-		SHORT_TEST = 0;
-	}
-	*/
-
 };
 struct stCfg_FT8606_BasicThreshold
 {
@@ -73,42 +56,14 @@ struct stCfg_FT8606_BasicThreshold
 	int ShortTest_Max;
 	int ShortTest_K2Value;
 
-	/*
-	stCfg_FT8606_BasicThreshold()
-	{
-		FW_VER_VALUE = 0;
-		Factory_ID_Number = 0;
-		Project_Code = "";
-		IC_Version = 0;
-		RawDataTest_Min = 0;
-		RawDataTest_Max = 0;
-		ChannelNumTest_ChannelXNum = 0;
-		ChannelNumTest_ChannelYNum = 0;
-		ChannelNumTest_KeyNum = 0;
-		ResetPinTest_RegAddr = 0;
-		IntPinTest_RegAddr = 0;
-		NoiseTest_Coefficient = 0;
-		NoiseTest_Frames = 0;
-		NoiseTest_Time = 0;
-		NoiseTest_SampeMode = 0;
-		NoiseTest_NoiseMode = 0;
-		NoiseTest_ShowTip = 0;
-		CbTest_Min = 0;
-		CbTest_Max = 0;
-		ShortTest_Max = 0;
-		ShortTest_K2Value = 0;
-	}
-	*/
-
-
 };
 
 
 enum enumTestItem_FT8606
 {
-	Code_FT8606_ENTER_FACTORY_MODE,所有IC都必备的测试项
-	Code_FT8606_DOWNLOAD,所有IC都必备的测试项
-	Code_FT8606_UPGRADE,所有IC都必备的测试项
+	Code_FT8606_ENTER_FACTORY_MODE,
+	Code_FT8606_DOWNLOAD,
+	Code_FT8606_UPGRADE,
 	Code_FT8606_FACTORY_ID_TEST,
 	Code_FT8606_PROJECT_CODE_TEST,
 	Code_FT8606_FW_VERSION_TEST,
@@ -121,14 +76,7 @@ enum enumTestItem_FT8606
 	Code_FT8606_NOISE_TEST,
 	Code_FT8606_CB_TEST,
 
-
-
-
-
-
-
-
-	Code_FT8606_WRITE_CONFIG,所有IC都必备的测试项
+	Code_FT8606_WRITE_CONFIG,
 
 	Code_FT8606_SHORT_CIRCUIT_TEST,
 };

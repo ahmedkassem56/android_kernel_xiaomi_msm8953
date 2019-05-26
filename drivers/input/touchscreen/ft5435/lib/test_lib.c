@@ -1,6 +1,6 @@
 /************************************************************************
-* Copyright (C) 2012-2015, Focaltech Systems (R)£¨All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2012-2015, Focaltech Systems (R)??All Rights Reserved.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: Test_lib.c
 *
@@ -64,27 +64,20 @@ int set_param_data(char *TestParamData)
 {
 
 
-
-
-
-
 	printk("Enter  set_param_data \n");
 	g_testparamstring = TestParamData;
 	ini_get_key_data(g_testparamstring);
-
-	¥”≈‰÷√∂¡»°À˘—°–æ∆¨¿‡–
 
 	OnInit_InterfaceCfg(g_testparamstring);
 
 	/*Get IC Name*/
 	get_ic_name(g_ScreenSetParam.iSelectedIC, g_strIcName);
 
-	≤‚ ‘œÓ≈‰÷√
 	if (IC_FT5X46>>4 == g_ScreenSetParam.iSelectedIC>>4)
 	{
 		OnInit_FT5X22_TestItem(g_testparamstring);
 		OnInit_FT5X22_BasicThreshold(g_testparamstring);
-		OnInit_MCap_DetailThreshold(g_testparamstring);≤‚ ‘œÓœÍœ∏≈‰÷√
+		OnInit_MCap_DetailThreshold(g_testparamstring);
 		SetTestItem_FT5X22();
 	}
 	else if (IC_FT8606>>4 == g_ScreenSetParam.iSelectedIC>>4)
@@ -112,14 +105,10 @@ int set_param_data(char *TestParamData)
 	{
 		OnInit_FT3C47_TestItem(g_testparamstring);
 		OnInit_FT3C47_BasicThreshold(g_testparamstring);
-		OnInit_MCap_DetailThreshold(g_testparamstring);≤‚ ‘œÓœÍœ∏≈‰÷√
+		OnInit_MCap_DetailThreshold(g_testparamstring);
 		SetTestItem_FT3C47();
 	}
 
-	/*gettimeofday(&time_end, NULL);//End time
-	time_use = (time_end.tv_sec - time_start.tv_sec)*1000 + (time_end.tv_usec - time_start.tv_usec)/1000;
-	printk("Load Config, use time = %d ms \n", time_use);
-	*/
 	return 0;
 }
 
@@ -225,7 +214,7 @@ int show_lib_ver(char *pLibVer)
 {
 	int num_read_chars = 0;
 
-	num_read_chars = snprintf(pLibVer, 128,"%s \n", FTS_DRIVER_LIB_INFO);
+	num_read_chars = snprintf(pLibVer, 128, "%s \n", FTS_DRIVER_LIB_INFO);
 
 	return num_read_chars;
 }

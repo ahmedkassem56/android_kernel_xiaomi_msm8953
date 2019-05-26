@@ -1,6 +1,6 @@
 /************************************************************************
 * Copyright (C) 2012-2015, Focaltech Systems (R)£¬All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: ini.c
 *
@@ -149,22 +149,22 @@ Note:
 *************************************************************/
 char *ini_str_trim_r(char *buf)
 {
-	int len,i;
+	int len, i;
 	char tmp[512];
 
 	memset(tmp, 0, sizeof(tmp));
 	len = strlen(buf);
 
 
-	memset(tmp,0x00,len);
+	memset(tmp, 0x00, len);
 	for (i = 0; i < len; i++) {
 		if (buf[i] != ' ')
 			break;
 	}
 	if (i < len) {
-		strncpy(tmp,(buf+i),(len-i));
+		strncpy(tmp, (buf+i), (len-i));
 	}
-	strncpy(buf,tmp,len);
+	strncpy(buf, tmp, len);
 
 	return buf;
 }
@@ -178,23 +178,23 @@ Note:
 *************************************************************/
 char *ini_str_trim_l(char *buf)
 {
-	int len,i;
+	int len, i;
 	char tmp[512];
 
 	memset(tmp, 0, sizeof(tmp));
 	len = strlen(buf);
 
 
-	memset(tmp,0x00,len);
+	memset(tmp, 0x00, len);
 
 	for (i = 0; i < len; i++) {
 		if (buf[len-i-1] != ' ')
 			break;
 	}
 	if (i < len) {
-		strncpy(tmp,buf,len-i);
+		strncpy(tmp, buf, len-i);
 	}
-	strncpy(buf,tmp,len);
+	strncpy(buf, tmp, len);
 
 	return buf;
 }
@@ -225,7 +225,7 @@ static int ini_file_get_line(char *filedata, char *buffer, int maxlen)
 				iRetNum++;
 			}
 
-			break; »»ÐÐ
+			break;
 		}else if (ch1 == 0x00)
 		{
 			iRetNum = -1;

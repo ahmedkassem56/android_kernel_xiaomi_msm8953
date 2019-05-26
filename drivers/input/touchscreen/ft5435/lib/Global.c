@@ -1,6 +1,6 @@
 /************************************************************************
 * Copyright (C) 2012-2015, Focaltech Systems (R)，All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: Global.c
 *
@@ -25,7 +25,7 @@
 
 #define DEVIDE_MODE_ADDR	0x00
 
-struct StruScreenSeting g_ScreenSetParam; 屏幕设置参数
+struct StruScreenSeting g_ScreenSetParam;
 struct stTestItem g_stTestItem[1][MAX_TEST_ITEM];
 
 int g_TestItemNum = 0;
@@ -69,62 +69,59 @@ int focal_abs(int value)
 	return value;
 }
 
-获取IC对应码
-
 unsigned char get_ic_code(char *strIcName)
 {
 
-	if (strncmp(strIcName,"FT5X36",6) == 0) return IC_FT5X36;
-	if (strncmp(strIcName, "FT5X36i",7) == 0) return IC_FT5X36i;
-	if (strncmp(strIcName, "FT3X16",6) == 0) return IC_FT3X16;
-	if (strncmp(strIcName, "FT3X26",6) == 0) return IC_FT3X26;
+	if (strncmp(strIcName, "FT5X36", 6) == 0) return IC_FT5X36;
+	if (strncmp(strIcName, "FT5X36i", 7) == 0) return IC_FT5X36i;
+	if (strncmp(strIcName, "FT3X16", 6) == 0) return IC_FT3X16;
+	if (strncmp(strIcName, "FT3X26", 6) == 0) return IC_FT3X26;
 
-	if (strncmp(strIcName, "FT5X46",6) == 0) return IC_FT5X46;
-	if (strncmp(strIcName, "FT5X46i",7) == 0) return IC_FT5X46i;
-	if (strncmp(strIcName, "FT5526",6) == 0) return IC_FT5526;
-	if (strncmp(strIcName, "FT3X17",6) == 0) return IC_FT3X17;
-	if (strncmp(strIcName, "FT5436",6) == 0) return IC_FT5436;
-	if (strncmp(strIcName, "FT3X27",6) == 0) return IC_FT3X27;
-	if (strncmp(strIcName, "FT5526i",7) == 0) return IC_FT5526I;
-	if (strncmp(strIcName, "FT5416",6) == 0) return IC_FT5416;
-	if (strncmp(strIcName, "FT5426",6) == 0) return IC_FT5426;
-	if (strncmp(strIcName, "FT5435",6) == 0) return IC_FT5435;
+	if (strncmp(strIcName, "FT5X46", 6) == 0) return IC_FT5X46;
+	if (strncmp(strIcName, "FT5X46i", 7) == 0) return IC_FT5X46i;
+	if (strncmp(strIcName, "FT5526", 6) == 0) return IC_FT5526;
+	if (strncmp(strIcName, "FT3X17", 6) == 0) return IC_FT3X17;
+	if (strncmp(strIcName, "FT5436", 6) == 0) return IC_FT5436;
+	if (strncmp(strIcName, "FT3X27", 6) == 0) return IC_FT3X27;
+	if (strncmp(strIcName, "FT5526i", 7) == 0) return IC_FT5526I;
+	if (strncmp(strIcName, "FT5416", 6) == 0) return IC_FT5416;
+	if (strncmp(strIcName, "FT5426", 6) == 0) return IC_FT5426;
+	if (strncmp(strIcName, "FT5435", 6) == 0) return IC_FT5435;
 
-	if (strncmp(strIcName, "FT6X06",6) == 0) return IC_FT6X06;
-	if (strncmp(strIcName, "FT3X06",6) == 0) return IC_FT3X06;
+	if (strncmp(strIcName, "FT6X06", 6) == 0) return IC_FT6X06;
+	if (strncmp(strIcName, "FT3X06", 6) == 0) return IC_FT3X06;
 
-	if (strncmp(strIcName, "FT6X36",6) == 0) return IC_FT6X36;
-	if (strncmp(strIcName, "FT3X07",6) == 0) return IC_FT3X07;
-	if (strncmp(strIcName, "FT6416",6) == 0) return IC_FT6416;
-	if (strncmp(strIcName, "FT6336G/U",9) == 0) return IC_FT6426;
+	if (strncmp(strIcName, "FT6X36", 6) == 0) return IC_FT6X36;
+	if (strncmp(strIcName, "FT3X07", 6) == 0) return IC_FT3X07;
+	if (strncmp(strIcName, "FT6416", 6) == 0) return IC_FT6416;
+	if (strncmp(strIcName, "FT6336G/U", 9) == 0) return IC_FT6426;
 
-	if (strncmp(strIcName, "FT5X16",6) == 0) return IC_FT5X16;
-	if (strncmp(strIcName, "FT5X12",6) == 0) return IC_FT5X12;
+	if (strncmp(strIcName, "FT5X16", 6) == 0) return IC_FT5X16;
+	if (strncmp(strIcName, "FT5X12", 6) == 0) return IC_FT5X12;
 
-	if (strncmp(strIcName, "FT5506",6) == 0) return IC_FT5506;
-	if (strncmp(strIcName, "FT5606",6) == 0) return IC_FT5606;
-	if (strncmp(strIcName, "FT5816",6) == 0) return IC_FT5816;
+	if (strncmp(strIcName, "FT5506", 6) == 0) return IC_FT5506;
+	if (strncmp(strIcName, "FT5606", 6) == 0) return IC_FT5606;
+	if (strncmp(strIcName, "FT5816", 6) == 0) return IC_FT5816;
 
-	if (strncmp(strIcName, "FT5822",6) == 0) return IC_FT5822;
-	if (strncmp(strIcName, "FT5626",6) == 0) return IC_FT5626;
-	if (strncmp(strIcName, "FT5726",6) == 0) return IC_FT5726;
-	if (strncmp(strIcName, "FT5826B",7) == 0) return IC_FT5826B;
-	if (strncmp(strIcName, "FT5826S",7) == 0) return IC_FT5826S;
+	if (strncmp(strIcName, "FT5822", 6) == 0) return IC_FT5822;
+	if (strncmp(strIcName, "FT5626", 6) == 0) return IC_FT5626;
+	if (strncmp(strIcName, "FT5726", 6) == 0) return IC_FT5726;
+	if (strncmp(strIcName, "FT5826B", 7) == 0) return IC_FT5826B;
+	if (strncmp(strIcName, "FT5826S", 7) == 0) return IC_FT5826S;
 
-	if (strncmp(strIcName, "FT5306",6) == 0) return IC_FT5306;
-	if (strncmp(strIcName, "FT5406",6) == 0) return IC_FT5406;
+	if (strncmp(strIcName, "FT5306", 6) == 0) return IC_FT5306;
+	if (strncmp(strIcName, "FT5406", 6) == 0) return IC_FT5406;
 
-	if (strncmp(strIcName, "FT8606",6) == 0) return IC_FT8606;
+	if (strncmp(strIcName, "FT8606", 6) == 0) return IC_FT8606;
 
 
-	if (strncmp(strIcName,"FT8606",6) == 0) return IC_FT8606;
+	if (strncmp(strIcName, "FT8606", 6) == 0) return IC_FT8606;
 
-	if (strncmp(strIcName, "FT3C47U",7) == 0) return IC_FT3C47U;
+	if (strncmp(strIcName, "FT3C47U", 7) == 0) return IC_FT3C47U;
 
 	return 0xff;
 }
 
-获取IC名
 
 void get_ic_name(unsigned char ucIcCode, char *strIcName)
 {
@@ -185,11 +182,11 @@ void OnInit_InterfaceCfg(char *strIniFile)
 	char str[128];
 
 
-	GetPrivateProfileString("Interface","IC_Type","FT5X36",str,strIniFile);
+	GetPrivateProfileString("Interface", "IC_Type", "FT5X36", str, strIniFile);
 	g_ScreenSetParam.iSelectedIC = get_ic_code(str);
 
 
-	GetPrivateProfileString("Interface","Normalize_Type",0,str,strIniFile);
+	GetPrivateProfileString("Interface", "Normalize_Type", 0, str, strIniFile);
 	g_ScreenSetParam.isNormalize = atoi(str);
 
 }

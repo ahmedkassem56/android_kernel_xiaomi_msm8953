@@ -3,7 +3,7 @@
  * FocalTech TouchScreen driver.
  *
  * Copyright (c) 2010-2016, FocalTech Systems, Ltd., all rights reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+ * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -132,7 +132,7 @@ static int fts_esd_protection_timeout(void *unused)
 		do_gettimeofday(&tv);
 		iDeltaTime = (tv.tv_sec - g_last_comm_time.tv_sec)*MSEC_PER_SEC + (tv.tv_usec - g_last_comm_time.tv_usec)/1000;
 
-		printk("xyf fts DeltaTime : %d\n",iDeltaTime);
+		printk("xyf fts DeltaTime : %d\n", iDeltaTime);
 
 		if (ESD_PROTECTION_WAIT_TIME < iDeltaTime)
 		{
@@ -146,13 +146,13 @@ static int fts_esd_protection_timeout(void *unused)
 int  fts_esd_protection_suspend(void)
 {
 	g_start_esd_protection = 0;
-	printk("%s enter\n",__func__);
+	printk("%s enter\n", __func__);
 	return 0;
 }
 int  fts_esd_protection_resume(void)
 {
 	g_start_esd_protection = 1;
-	printk("%s enter\n",__func__);
+	printk("%s enter\n", __func__);
 	return 0;
 }
 

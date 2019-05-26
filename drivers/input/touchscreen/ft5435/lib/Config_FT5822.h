@@ -1,6 +1,6 @@
 /************************************************************************
 * Copyright (C) 2012-2015, Focaltech Systems (R)，All Rights Reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+* Copyright (C) 2019 XiaoMi, Inc.
 *
 * File Name: Config_FT5822.h
 *
@@ -150,9 +150,9 @@ struct stCfg_FT5822_BasicThreshold
 };
 enum enumTestItem_FT5822
 {
-	Code_FT5822_ENTER_FACTORY_MODE,所有IC都必备的测试项
-	Code_FT5822_DOWNLOAD,所有IC都必备的测试项
-	Code_FT5822_UPGRADE,所有IC都必备的测试项
+	Code_FT5822_ENTER_FACTORY_MODE,
+	Code_FT5822_DOWNLOAD,
+	Code_FT5822_UPGRADE,
 	Code_FT5822_FACTORY_ID_TEST,
 	Code_FT5822_PROJECT_CODE_TEST,
 	Code_FT5822_FW_VERSION_TEST,
@@ -169,14 +169,14 @@ enum enumTestItem_FT5822
 	Code_FT5822_UNIFORMITY_TEST,
 	Code_FT5822_CM_TEST,
 	Code_FT5822_RAWDATA_MARGIN_TEST,
-	Code_FT5822_WRITE_CONFIG,所有IC都必备的测试项
+	Code_FT5822_WRITE_CONFIG,
 	Code_FT5822_PANELDIFFER_TEST,
 	Code_FT5822_PANELDIFFER_UNIFORMITY_TEST,
 	Code_FT5822_LCM_ID_TEST,
 	Code_FT5822_JUDEG_NORMALIZE_TYPE,
 	Code_FT5822_TE_TEST,
 	Code_FT5822_SITO_RAWDATA_UNIFORMITY_TEST,
-    	Code_FT5822_PATTERN_TEST,
+	Code_FT5822_PATTERN_TEST,
 };
 
 extern struct stCfg_FT5822_TestItem g_stCfg_FT5822_TestItem;
