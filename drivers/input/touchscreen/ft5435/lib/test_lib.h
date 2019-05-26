@@ -1,5 +1,18 @@
-#ifndef _FOCAL_MCAPTESTLIB_H
-#define _FOCAL_MCAPTESTLIB_H
+/************************************************************************
+* Copyright (C) 2012-2015, Focaltech Systems (R)£¬All Rights Reserved.
+ * Copyright (C) 2018 XiaoMi, Inc.
+*
+* File Name: Test_lib.h
+*
+* Author: Software Development Team, AE
+*
+* Created: 2015-07-14
+*
+* Abstract: test entry for all IC
+*
+************************************************************************/
+#ifndef _TEST_LIB_H
+#define _TEST_LIB_H
 
 #define boolean unsigned char
 #define bool unsigned char
@@ -24,5 +37,8 @@ int get_test_data(char *pTestData);
 
 void free_test_param_data(void);
 int show_lib_ver(char *pLibVer);
+
+
+
 
 #endif
