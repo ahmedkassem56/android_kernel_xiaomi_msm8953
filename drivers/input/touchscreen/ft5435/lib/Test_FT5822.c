@@ -1616,7 +1616,7 @@ static boolean GetTestCondition(int iTestType, unsigned char ucChannelValue)
 	case WT_NeedProofOnTest:
 		bIsNeeded = !(ucChannelValue & 0x20);
 		break;
-	case WT_NeedProofOffTest
+	case WT_NeedProofOffTest:
 		bIsNeeded = !(ucChannelValue & 0x80);
 		break;
 	case WT_NeedTxOnVal:

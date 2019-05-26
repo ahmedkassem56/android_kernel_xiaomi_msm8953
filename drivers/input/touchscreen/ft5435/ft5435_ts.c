@@ -3907,7 +3907,7 @@ static int ftxxxx_GetInISize(char *config_name)
 		return -EIO;
 	}
 
-	inode = pfile->f_dentry->d_inode;
+	inode = file_inode(pfile);
 	magic = inode->i_sb->s_magic;
 	fsize = inode->i_size;
 	filp_close(pfile, NULL);
@@ -3933,7 +3933,7 @@ static int ftxxxx_ReadInIData(char *config_name, char *config_buf)
 		return -EIO;
 	}
 
-	inode = pfile->f_dentry->d_inode;
+	inode = file_inode(pfile);
 	magic = inode->i_sb->s_magic;
 	fsize = inode->i_size;
 	old_fs = get_fs();

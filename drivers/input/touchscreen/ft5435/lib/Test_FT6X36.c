@@ -965,8 +965,6 @@ unsigned char FT6X36_TestItem_CbTest(bool *bTestResult)
 		printk("\r\n\r\nGet Proof_Level0 CB Data...");
 
 
-
-		·ÀË®CB
 		I2C_wBuffer[0] = 0x39;
 		ReCode = WriteReg(0x33, 0);
 		ReCode = Comm_Base_IIC_IO(I2C_wBuffer, 1, pReadData, readlen * 2);
